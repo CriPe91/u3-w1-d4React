@@ -1,35 +1,45 @@
-import { Col, Row, FormControl } from "react-bootstrap";
+import { Col, Container, Form, Row } from "react-bootstrap";
 import SingleBook from "./SingleBook";
 import { Component } from "react";
-import AddComment from "./AddComment";
+
+import CommentArea from "./CommentArea";
 
 class BookList extends Component {
   state = {
-    FiltraLibri: "",
+    FilterQuery: "",
   };
+
   render() {
     return (
       <>
         <Row className="justify-content-center mb-3">
-          <Col xs={6}>
-            <FormControl
+          <Col xs={4}>
+            <Form.Control
               type="text"
-              placeholder="Filtra i libri"
-              value={this.state.FiltraLibri}
-              onChange={(e) => this.setState({ FiltraLibri: e.target.value })}
+              placeholder="cerca i tuoi libri"
+              value={this.state.FilterQuery}
+              onChange={(e) => this.setState({ FilterQuery: e.target.value })}
             />
           </Col>
         </Row>
-        <Row md={6} lg={3} className="gy-3">
-          {this.props.books
-            .filter((book) => book.title.toLowerCase().includes(this.state.FiltraLibri.toLowerCase()))
-            .map((book) => (
-              <Col key={book.asin}>
-                <SingleBook book={book} />
-                <AddComment book={book} />
-              </Col>
-            ))}
-        </Row>
+        <Container>
+          <Row>
+            <Col md={9}>
+              <Row>
+                {this.props.books
+                  .filter((book) => book.title.toLowerCase().includes(this.state.FilterQuery.toLowerCase()))
+                  .map((book) => (
+                    <Col key={book.asin} sm={4} lg={4}>
+                      <SingleBook book={book} />
+                    </Col>
+                  ))}
+              </Row>
+            </Col>
+            <Col md={3}>
+              <CommentArea />
+            </Col>
+          </Row>
+        </Container>
       </>
     );
   }

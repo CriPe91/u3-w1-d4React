@@ -13,7 +13,7 @@ function App() {
     <>
       <MyNav />,
       <Welcome />,
-      <BookList books={Horror} />,{/* ,<AllTheBooks /> */}
+      <BookList books={Horror} />,{/* <AllTheBooks /> */}
       <MyFooter />
     </>
   );
